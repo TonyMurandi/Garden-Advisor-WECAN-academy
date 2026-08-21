@@ -49,3 +49,22 @@ response2 = client.models.generate_content(
 print("/n=== Stage 2: solutions of Diagnosis ===/n")
 print(response2.text)
 
+stage2_result = response2.text
+
+# save response to file
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+output_file = f"output/garden_advice_{timestamp}.txt"
+with open(output_file, "w") as f:
+    f.write(f"Crop: {crop}\n")
+    f.write(f"County: {county}\n")
+    f.write(f"Problem: {problem}\n")
+    f.write(f"Generated at: {timestamp}\n")
+    f.write("=" * 50 + "\n\n")
+    f.write("STAGE 1: DIAGNOSIS\n")
+    f.write("-" * 50 + "\n")
+    f.write(stage1_result)
+    f.write("\nSTAGE 2: SOLUTIONS OF DIAGNOSIS\n")
+    f.write("-" * 50 + "\n")
+    f.write(stage2_result)
+
+    print(f"\nResults saved to {output_file}")
